@@ -1,0 +1,25 @@
+##Create a GKE cluster
+
+1. In Cloud Shell, type the following command to create environment variables for the GCP zone and cluster name that will be used to create the cluster.
+
+  export my_zone=us-central1-a
+  export my_cluster=standard-cluster-1
+
+2. Configure tab completion for the kubectl command-line tool.
+
+  source <(kubectl completion bash)
+
+3.Create a VPC-native Kubernetes cluster.
+
+  gcloud container clusters create $my_cluster \
+    --num-nodes 2 --enable-ip-alias --zone $my_zone
+
+4. Configure access to your cluster for kubectl:
+
+  gcloud container clusters get-credentials $my_cluster --zone $my_zone
+
+Deploy a sample web app to your kubernetes cluster:
+
+ 1. Create a deployment 
+    kubectl create -f web.yaml --save-config
+
